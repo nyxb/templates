@@ -1,0 +1,22 @@
+{
+  "name": "starter_templates",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "@nyxb/eslint-config": "latest",
+    "eslint": "^8.28.0",
+    "tsup": "^6.7.0",
+    "turbo": "latest",
+    "typescript": "^5.0.4"
+  },
+  "packageManager": "pnpm@8.3.1",
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=8"
+  }
+}

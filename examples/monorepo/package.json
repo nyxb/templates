@@ -1,0 +1,20 @@
+{
+  "name": "example",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint"
+  },
+  "devDependencies": {
+    "@nyxb/eslint-config": "latest",
+    "eslint": "^8.39.0",
+    "turbo": "latest",
+    "typescript": "^5.0.4"
+  },
+  "packageManager": "pnpm@8.3.1",
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=8"
+  }
+}
