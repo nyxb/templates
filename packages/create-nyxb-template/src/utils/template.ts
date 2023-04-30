@@ -47,7 +47,7 @@ export async function IsTemplateExist(name: string): Promise<boolean> {
 
 async function downloadTar(url: string) {
   const pipeline = promisify(Stream.pipeline)
-  const tempFile = join(tmpdir(), `discordx-template.temp-${Date.now()}`)
+  const tempFile = join(tmpdir(), `nyxb-template.temp-${Date.now()}`)
 
   const request = await axios({
     responseType: 'stream',

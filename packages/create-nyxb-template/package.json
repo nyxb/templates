@@ -1,6 +1,6 @@
 {
   "name": "create-nyxb-template",
-  "version": "0.0.17",
+  "version": "0.0.22",
   "description": "create nyxb apps with one command",
   "author": "Dennis Ollhoff <contact@nyxb.com>",
   "license": "MIT",
