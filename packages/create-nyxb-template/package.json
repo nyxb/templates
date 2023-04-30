@@ -1,6 +1,6 @@
 {
   "name": "create-nyxb-template",
-  "version": "0.0.22",
+  "version": "0.0.42",
   "description": "create nyxb apps with one command",
   "author": "Dennis Ollhoff <contact@nyxb.com>",
   "license": "MIT",
@@ -24,9 +24,11 @@
   "dependencies": {
     "@nyxb/picocolors": "latest",
     "@tyck/prompts": "latest",
+    "async-retry": "^1.3.3",
     "axios": "^1.3.5",
     "boxen": "^7.0.2",
     "chalk": "^5.2.0",
+    "got": "^12.6.0",
     "gradient-string": "^2.0.2",
     "is-installed-globally": "^0.4.0",
     "ora": "^6.3.0",
@@ -44,15 +46,16 @@
   },
   "devDependencies": {
     "@nyxb/tsconfig": "workspace:*",
+    "@types/async-retry": "^1.4.5",
     "@types/fs-extra": "^11.0.1",
     "@types/gradient-string": "^1.1.2",
     "@types/node": "^18.15.11",
     "@types/tar": "^6.1.4",
     "@types/validate-npm-package-name": "^4.0.0",
     "eslint": "^8.28.0",
-    "rimraf": "^5.0.0",
     "esno": "^0.16.3",
     "fs-extra": "11.1.1",
+    "rimraf": "^5.0.0",
     "typescript": "^5.0.4"
   },
   "files": [

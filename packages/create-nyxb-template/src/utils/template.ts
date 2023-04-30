@@ -1,83 +1,56 @@
-import { createWriteStream, promises as fs } from 'node:fs'
+import path from 'node:path'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
-import { Readable, Stream } from 'node:stream'
+import { createWriteStream } from 'node:fs'
+import fs from 'node:fs/promises'
 import { promisify } from 'node:util'
+import { Stream } from 'node:stream'
 import tar from 'tar'
-import axios from 'axios'
+import got from 'got'
 
-/**
- * Get templates list from https://github.com/nyxb/templates
- *
- * @returns
- */
-export async function GetTemplates(): Promise<
-  { title: string; value: string }[]
-> {
-  const response = await axios
-    .get<{ name: string; path: string; type: string }[]>(
-      'https://api.github.com/repos/nyxb/templates/contents/examples',
-    )
-    .then(res =>
-      res.data
-        .filter(row => row.type === 'dir' && /^[0-9].+/.test(row.name))
-        .map(row => ({ title: row.name, value: row.path })),
-    )
-    .catch(() => [])
+const pipeline = promisify(Stream.pipeline)
 
-  return response
+export async function GetTemplates() {
+  const TEMPLATE_REPO_URL = 'https://api.github.com/repos/nyxb/templates/contents/examples'
+
+  try {
+    const response = await got(TEMPLATE_REPO_URL, {
+      headers: {
+        'User-Agent': 'nyxb-template-fetcher', // Fügen Sie einen benutzerdefinierten User-Agent hinzu
+      },
+    })
+    const files = JSON.parse(response.body)
+
+    return files
+      .filter((file: any) => file.type === 'dir')
+      .map((file: any) => ({
+        title: file.name,
+        value: file.name,
+      }))
+  }
+  catch (e: any) {
+    console.error('Error fetching templates:', e.message)
+    return []
+  }
 }
 
-/**
- * Check if the template exists on GitHub
- *
- * @param name template name
- * @returns
- */
-export async function IsTemplateExist(name: string): Promise<boolean> {
-  const response = await axios
-    .get(
-      `https://api.github.com/repos/nyxb/templates/contents/examples/${name}?ref=main`,
-    )
-    .then(() => true)
-    .catch(() => false)
-
-  return response
-}
-
-async function downloadTar(url: string) {
-  const pipeline = promisify(Stream.pipeline)
-  const tempFile = join(tmpdir(), `nyxb-template.temp-${Date.now()}`)
-
-  const request = await axios({
-    responseType: 'stream',
-    url,
-  })
-
-  await pipeline(Readable.from(request.data), createWriteStream(tempFile))
+async function downloadTar(url: string, name: string) {
+  const tempFile = path.join(tmpdir(), `${name}.temp-${Date.now()}`)
+  await pipeline(got.stream(url), createWriteStream(tempFile))
   return tempFile
 }
 
-/**
- * Download and extract template
- *
- * @param root project path
- * @param name project name
- * @returns
- */
-export async function DownloadAndExtractTemplate(
+export async function downloadAndExtractExample(
   root: string,
-  name: string,
-): Promise<void> {
-  const tempFile = await downloadTar(
-    'https://codeload.github.com/nyxb/templates/tar.gz/main',
-  )
+  templateName: string,
+) {
+  const tarUrl = 'https://codeload.github.com/nyxb/templates/tar.gz/main'
+  const tempFile = await downloadTar(tarUrl, 'nyxb-template')
 
   await tar.x({
-    cwd: root,
     file: tempFile,
-    filter: p => p.includes(`templates-main/examples/${name}`),
-    strip: 2,
+    cwd: root,
+    strip: 2 + templateName.split('/').length,
+    filter: (p: string) => p.includes(`templates-main/examples/${templateName}/`),
   })
 
   await fs.unlink(tempFile)

@@ -1,6 +1,6 @@
 import { exec, execSync } from 'node:child_process'
 import c from '@nyxb/picocolors'
-import { cancel, intro, isCancel, select } from '@tyck/prompts'
+import { cancel, isCancel, select } from '@tyck/prompts'
 import { error, info, nyxbLoader } from '../logger'
 
 export enum PackageManager {
@@ -12,10 +12,8 @@ export enum PackageManager {
 }
 
 export async function GetPackageManager(): Promise<PackageManager | null> {
-  intro('Pick package manager 📦')
-
   const selected = await select({
-    message: 'Pick package manager',
+    message: 'Pick package manager📦',
     options: [
       {
         value: PackageManager.npm.toString(),
@@ -129,9 +127,11 @@ export async function InstallPackage(
 
       case PackageManager.pnpm:
         await new Promise((resolve, reject) => {
-          exec('pnpm install', { cwd: root }, (err) => {
+          exec('pnpm install', { cwd: root }, (err, stdout, stderr) => {
             if (err)
-              reject(err)
+              console.error('stdout:', stdout)
+            console.error('stderr:', stderr)
+            reject(err)
 
             resolve(true)
           })
@@ -152,7 +152,8 @@ export async function InstallPackage(
 
     spinner.succeed(c.bold('Installed packages'))
   }
-  catch (err) {
-    spinner.fail(c.bold('Failed to install packages :('))
+  catch (err: any) {
+    spinner.fail(c.bold('Failed to install packages 😓'))
+    console.error('Error details:', err)
   }
 }

@@ -24,13 +24,13 @@ export function nyxbLoader(text: string) {
 }
 
 export function info(...args: any[]) {
-  console.log(nyxbGreen.bold('>>>'), ...args)
+  console.log(nyxbGreen.bold('>'), ...args)
 }
 
 export function error(...args: any[]) {
-  console.error(nyxbRed.bold('>>>'), ...args)
+  console.error(nyxbRed.bold('>'), ...args)
 }
 
 export function warn(...args: any[]) {
-  console.error(yellow.bold('>>>'), ...args)
+  console.error(yellow.bold('>'), ...args)
 }

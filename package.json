@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@nyxb/eslint-config": "latest",
+    "@types/async-retry": "^1.4.5",
     "eslint": "^8.28.0",
     "tsup": "^6.7.0",
     "turbo": "latest",
@@ -18,5 +19,8 @@
   "engines": {
     "node": ">=16",
     "pnpm": ">=8"
+  },
+  "dependencies": {
+    "got": "^12.6.0"
   }
 }
