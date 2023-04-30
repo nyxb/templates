@@ -1,6 +1,6 @@
 import { execSync } from 'node:child_process'
 import path from 'node:path'
-import { rimraf } from 'rimraf'
+import * as rimraf from 'rimraf'
 
 function IsInGitRepository(root: string): boolean {
   try {
@@ -35,7 +35,7 @@ export function TryGitInit(root: string): boolean {
 
     execSync('git checkout -b main', { cwd: root, stdio: 'ignore' })
     execSync('git add -A', { cwd: root, stdio: 'ignore' })
-    execSync('git commit -m "🔰This is where it all begins... from nyxb"', {
+    execSync('git commit -m "🔰This is where it all begins... ™nyxb"', {
       cwd: root,
       stdio: 'ignore',
     })

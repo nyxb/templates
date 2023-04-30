@@ -1,6 +1,6 @@
-import fs from 'node:fs/promises'
 import { execSync } from 'node:child_process'
-import { error } from './logger.js'
+import * as fs from 'fs-extra'
+import { error } from '../logger.js'
 
 export async function checkIfPackageIsInstalled(packageName: string): Promise<boolean> {
   try {

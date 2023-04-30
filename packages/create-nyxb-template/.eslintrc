@@ -2,5 +2,7 @@
   "root": true,
   "extends": "@nyxb",
   "rules": {
+    "import/no-named-default": "off",
+    "@typescript-eslint/consistent-type-imports": "off",
     "no-console": "off"}
 }

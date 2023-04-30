@@ -1,42 +1,35 @@
 {
   "name": "create-nyxb-template",
-  "version": "0.0.2",
+  "version": "0.0.17",
   "description": "create nyxb apps with one command",
   "author": "Dennis Ollhoff <contact@nyxb.com>",
   "license": "MIT",
   "homepage": "https://github.com/nyxb/templates#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nyxb/templates.git"
+    "url": "git+https://github.com/nyxb/templates.git",
+    "directory": "packages/create-nyxb-template"
   },
   "bugs": {
     "url": "https://github.com/nyxb/templates/issues"
   },
   "hompage": "💻nyxb.ws",
-  "main": "dist/index.js",
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md",
-    "package.json"
-  ],
   "bin": {
-    "create-nyxb-template": "./dist/index.mjs"
+    "create-nyxb-template": "dist/cli.mjs"
   },
   "scripts": {
-    "start": "esno dist/index.js",
-    "build": "tsc"
+    "build": "tsup",
+    "start": "esno dist/cli.mjs"
   },
   "dependencies": {
     "@nyxb/picocolors": "latest",
     "@tyck/prompts": "latest",
     "axios": "^1.3.5",
     "boxen": "^7.0.2",
-    "chalk": "2.4.2",
-    "gradient-string": "^2.0.0",
+    "chalk": "^5.2.0",
+    "gradient-string": "^2.0.2",
     "is-installed-globally": "^0.4.0",
     "ora": "^6.3.0",
-    "rimraf": "^5.0.0",
     "tar": "^6.1.13",
     "typescript": "5.0.4",
     "update-check": "^1.5.4",
@@ -54,13 +47,15 @@
     "@types/fs-extra": "^11.0.1",
     "@types/gradient-string": "^1.1.2",
     "@types/node": "^18.15.11",
-    "@types/prompts": "^2.4.4",
-    "@types/rimraf": "^3.0.2",
     "@types/tar": "^6.1.4",
     "@types/validate-npm-package-name": "^4.0.0",
     "eslint": "^8.28.0",
+    "rimraf": "^5.0.0",
     "esno": "^0.16.3",
     "fs-extra": "11.1.1",
     "typescript": "^5.0.4"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }

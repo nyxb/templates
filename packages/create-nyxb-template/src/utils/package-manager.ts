@@ -1,7 +1,7 @@
 import { exec, execSync } from 'node:child_process'
 import c from '@nyxb/picocolors'
 import { cancel, intro, isCancel, select } from '@tyck/prompts'
-import { error, info, nyxbLoader } from './logger'
+import { error, info, nyxbLoader } from '../logger'
 
 export enum PackageManager {
   npm,
